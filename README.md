@@ -1,99 +1,94 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# 💾 Meeting Costs Calculator API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## 📢 Overview
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+The **Meeting Costs Calculator API** is the backend service powering the Meeting Costs Calculator. This API facilitates user management, meeting room creation, and real-time cost tracking using WebSockets. Built with **NestJS**, **Fastify**, and **Prisma**, it ensures optimal performance, scalability, and efficiency.
 
-## Description
+## 🔮 Planned Features
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+The following features are currently under development:
 
-## Project setup
+- **User-Created Meeting Rooms**: Generate shareable links with optional passwords.
+- **Real-Time Updates**: Keep all participants in sync via WebSockets.
+- **Secure Salary Input**: Users can enter salaries privately without exposing them to others.
+- **Persistent Meetings**: Pause and resume meetings with saved room data.
+- **User Authentication & Roles**: Secure access for different user types.
+- **Enhanced Analytics**: Generate detailed reports on meeting costs.
+- **OAuth Support**: Enable login via Google, GitHub, and other providers.
 
-```bash
-$ npm install
-```
+## 🛠 Tech Stack
 
-## Compile and run the project
+- **Framework**: NestJS
+- **Server**: Fastify
+- **Database ORM**: Prisma (PostgreSQL)
+- **WebSockets**: Integrated for real-time synchronization
 
-```bash
-# development
-$ npm run start
+## 🔧 Installation
 
-# watch mode
-$ npm run start:dev
+### Prerequisites
 
-# production mode
-$ npm run start:prod
-```
+- Node.js & npm installed
+- Docker & Docker Compose installed
 
-## Run tests
+### Setup Steps
 
-```bash
-# unit tests
-$ npm run test
+1. Clone the repository:
 
-# e2e tests
-$ npm run test:e2e
+   ```bash
+   git clone https://github.com/whaagmans/meeting-costs-calculator-api.git
+   ```
 
-# test coverage
-$ npm run test:cov
-```
+2. Navigate to the project directory:
 
-## Deployment
+   ```bash
+   cd meeting-costs-calculator-api
+   ```
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+3. Ensure you're using the correct Node.js version:
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+   ```bash
+   nvm use
+   ```
 
-```bash
-$ npm install -g mau
-$ mau deploy
-```
+4. Install dependencies:
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+   ```bash
+   npm install
+   ```
 
-## Resources
+5. Start required services using Docker Compose:
 
-Check out a few resources that may come in handy when working with NestJS:
+   ```bash
+   docker-compose up -d
+   ```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+6. Run database migrations:
 
-## Support
+   ```bash
+   npx prisma migrate dev --name init
+   ```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+7. Start the API server:
 
-## Stay in touch
+   ```bash
+   npm run start:dev
+   ```
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## 🤝 Contributing
 
-## License
+We welcome contributions! To contribute, follow these steps:
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+1. **Fork the repository**.
+2. **Create a new branch**: `git checkout -b feature-name`.
+3. **Implement your changes**.
+4. **Push your changes**: `git push origin feature-name`.
+5. **Submit a pull request**.
+
+## 📜 License
+
+This project is licensed under the MIT License, allowing free use and modifications.
+
+---
+
+🚀 **Start tracking your meeting costs with a robust backend!**
+
