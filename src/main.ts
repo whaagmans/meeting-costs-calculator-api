@@ -1,4 +1,4 @@
-import type { INestApplication } from '@nestjs/common';
+import { ValidationPipe, type INestApplication } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import {
   FastifyAdapter,
@@ -22,6 +22,10 @@ function createFastifyAdapter(): FastifyAdapter {
   return new FastifyAdapter();
 }
 
+function createValidationPipe(): ValidationPipe {
+  return new ValidationPipe();
+}
+
 async function serverSetup() {
   const port = process.env.PORT ?? 3000;
 
@@ -29,6 +33,9 @@ async function serverSetup() {
     AppModule,
     createFastifyAdapter(),
   );
+
+  // sets up the global validation pipe to use class-validator
+  app.useGlobalPipes(createValidationPipe());
 
   swaggerSetup(app);
   await app.listen(+port);
