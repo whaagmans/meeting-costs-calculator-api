@@ -1,8 +1,11 @@
+import type { INestApplication } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import {
+  FastifyAdapter,
+  NestFastifyApplication,
+} from '@nestjs/platform-fastify';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
-
-import type { INestApplication } from '@nestjs/common';
 
 function swaggerSetup(app: INestApplication) {
   const SWAGGER_API_PATH = 'swagger';
@@ -15,12 +18,19 @@ function swaggerSetup(app: INestApplication) {
   SwaggerModule.setup(SWAGGER_API_PATH, app, documentFactory);
 }
 
+function createFastifyAdapter(): FastifyAdapter {
+  return new FastifyAdapter();
+}
+
 async function serverSetup() {
-  const app = await NestFactory.create(AppModule);
   const port = process.env.PORT ?? 3000;
 
-  swaggerSetup(app);
+  const app = await NestFactory.create<NestFastifyApplication>(
+    AppModule,
+    createFastifyAdapter(),
+  );
 
+  swaggerSetup(app);
   await app.listen(+port);
 }
 
