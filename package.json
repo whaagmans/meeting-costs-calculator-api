@@ -2,9 +2,17 @@
   "name": "meeting-costs-calculator-api",
   "version": "0.0.1",
   "description": "",
-  "author": "",
+  "author": "whaagmans",
   "private": true,
   "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/whaagmans/meeting-costs-calculator-api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/whaagmans/meeting-costs-calculator-api/issues"
+  },
+  "homepage": "https://github.com/whaagmans/meeting-costs-calculator-api#readme",
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
