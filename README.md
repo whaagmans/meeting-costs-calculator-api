@@ -96,4 +96,3 @@ This project is licensed under the MIT License, allowing free use and modificati
 ---
 
 🚀 **Start tracking your meeting costs with a robust backend!**
-
