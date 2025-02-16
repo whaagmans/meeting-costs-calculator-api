@@ -6,7 +6,7 @@ import { UpdateRoomDto } from './dto/update-room.dto';
 
 @Injectable()
 export class RoomsService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) {}
   create(createRoomDto: CreateRoomDto): Promise<Room> {
     const random = Math.random().toString(36).substring(7);
 
