@@ -1,7 +1,17 @@
+enum MeetingStatus {
+    NOT_STARTED
+    STARTED
+    ENDED
+}
+
 model Room {
-    id        Int      @id @default(autoincrement())
-    roomCode  String   @unique
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    id            String        @id @default(cuid())
+    name          String
+    roomCode      String        @unique
+    roomPassword  String?
+    meetingStatus MeetingStatus @default(NOT_STARTED)
+    startedAt     DateTime?
+    endedAt       DateTime?
+    createdAt     DateTime      @default(now())
+    updatedAt     DateTime      @updatedAt
 }
