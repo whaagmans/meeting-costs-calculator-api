@@ -1,11 +1,16 @@
 import { ValidationPipe, type INestApplication } from '@nestjs/common';
-import { NestFactory } from '@nestjs/core';
+import {
+  type AbstractHttpAdapter,
+  HttpAdapterHost,
+  NestFactory,
+} from '@nestjs/core';
 import {
   FastifyAdapter,
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import { PrismaClientExceptionFilter } from './exception-filters/prisma-client-exception/prisma-client-exception.filter';
 
 function swaggerSetup(app: INestApplication) {
   const SWAGGER_API_PATH = 'swagger';
@@ -26,6 +31,12 @@ function createValidationPipe(): ValidationPipe {
   return new ValidationPipe();
 }
 
+function createPrismaClientExceptionFilter(
+  httpAdapterHost: AbstractHttpAdapter,
+): PrismaClientExceptionFilter {
+  return new PrismaClientExceptionFilter(httpAdapterHost);
+}
+
 async function serverSetup() {
   const port = process.env.PORT ?? 3000;
 
@@ -34,11 +45,20 @@ async function serverSetup() {
     createFastifyAdapter(),
   );
 
-  // sets up the global validation pipe to use class-validator
+  // Retrieve the HTTP adapter from the application instance.
+  const { httpAdapter } = app.get(HttpAdapterHost);
+
+  // Set up global validation for incoming requests.
   app.useGlobalPipes(createValidationPipe());
 
+  // Apply Prisma exception handling globally.
+  app.useGlobalFilters(createPrismaClientExceptionFilter(httpAdapter));
+
+  // Initialize Swagger API documentation.
   swaggerSetup(app);
-  await app.listen(+port);
+
+  // Start the server and listen on the given port.
+  await app.listen(+port, '0.0.0.0');
 }
 
 void serverSetup();
