@@ -1,4 +1,4 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Room } from '@prisma/client';
 import { PrismaService } from '../utils/prisma/prisma.service';
 import { CreateRoomDto } from './dto/create-room.dto';
