@@ -1,5 +1,10 @@
 # 💾 Meeting Costs Calculator API
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=whaagmans_meeting-costs-calculator-api&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=whaagmans_meeting-costs-calculator-api)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=whaagmans_meeting-costs-calculator-api&metric=bugs)](https://sonarcloud.io/summary/new_code?id=whaagmans_meeting-costs-calculator-api)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=whaagmans_meeting-costs-calculator-api&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=whaagmans_meeting-costs-calculator-api)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=whaagmans_meeting-costs-calculator-api&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=whaagmans_meeting-costs-calculator-api)
+
 ## 📢 Overview
 
 The **Meeting Costs Calculator API** is the backend service powering the Meeting Costs Calculator. This API facilitates user management, meeting room creation, and real-time cost tracking using WebSockets. Built with **NestJS**, **Fastify**, and **Prisma**, it ensures optimal performance, scalability, and efficiency.
