@@ -59,6 +59,8 @@ async function serverSetup() {
 
   // Start the server and listen on the given port.
   await app.listen(+port, '0.0.0.0');
+
+  console.log(`🚀 Server running at http://localhost:${port}`);
 }
 
 void serverSetup();
