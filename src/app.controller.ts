@@ -9,5 +9,9 @@ export class AppController {
   getWelcome(): { message: string } {
     return { message: 'Welcome to the Meeting Costs Calculator API' };
   }
+
+  @Get('health')
+  getHealth(): string {
+    return this.appService.getHealth();
   }
 }
