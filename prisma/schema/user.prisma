@@ -1,0 +1,11 @@
+model User {
+    id              String    @id @default(uuid())
+    username        String
+    password        String
+    salaryPerSecond Float
+    createdAt       DateTime  @default(now())
+    updatedAt       DateTime  @updatedAt
+    lastLoginAt     DateTime?
+
+    UserRoom UserRoom[]
+}
