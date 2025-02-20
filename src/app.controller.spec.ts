@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { NotImplementedException } from '@nestjs/common';
 
 describe('AppController', () => {
   let appController: AppController;
@@ -14,9 +15,18 @@ describe('AppController', () => {
     appController = app.get<AppController>(AppController);
   });
 
-  describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
+  describe('welcome', () => {
+    it('should return "Welcome to the Meeting Costs Calculator API"', () => {
+      expect(appController.getWelcome()).toEqual({
+        message: 'Welcome to the Meeting Costs Calculator API',
+      });
+    });
+  });
+  describe('health', () => {
+    it('should throw NotImplementedException', () => {
+      expect(() => appController.getHealth()).toThrow(
+        new NotImplementedException('getHealth not implemented yet.'),
+      );
     });
   });
 });
