@@ -1,5 +1,7 @@
 {
     "conventionalCommits.scopes": [
-        "server"
+        "server",
+        "config",
+        "workflow"
     ]
 }
