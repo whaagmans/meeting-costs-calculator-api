@@ -9,7 +9,15 @@ const config: Config = {
   transform: {
     '^.+\\.(t|j)s$': 'ts-jest',
   },
-  collectCoverageFrom: ['**/*.(t|j)s'],
+  collectCoverageFrom: ['src/**/*.(t|j)s'],
+  coveragePathIgnorePatterns: [
+    'src/main.ts', // Exclude main.ts (app bootstrap)
+    'src/app\\.module\\.ts$', // Ignore app.module.ts (NestJS modules)
+    'src/.*/dto/.*\\.ts$', // Ignore all DTOs inside any subfolder
+    'src/.*/entities/.*\\.ts$', // Ignore all entity files inside any subfolder
+    'test/', // Exclude test folder
+  ],
+
   coverageDirectory: '../coverage',
   testEnvironment: 'node',
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
