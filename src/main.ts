@@ -28,7 +28,11 @@ function createFastifyAdapter(): FastifyAdapter {
 }
 
 function createValidationPipe(): ValidationPipe {
-  return new ValidationPipe();
+  return new ValidationPipe({
+    whitelist: true, // Remove any additional properties that are not defined in the DTO.
+    transform: true, // Automatically transform incoming data to the DTO type.
+    forbidNonWhitelisted: true, // Throw an error if any non-whitelisted properties are present.
+  });
 }
 
 function createPrismaClientExceptionFilter(
