@@ -6,7 +6,6 @@ import type { FastifyReply } from 'fastify';
 @Catch(Prisma.PrismaClientKnownRequestError)
 export class PrismaClientExceptionFilter extends BaseExceptionFilter {
   catch(exception: Prisma.PrismaClientKnownRequestError, host: ArgumentsHost) {
-    console.log(exception);
     const context = host.switchToHttp();
     const response = context.getResponse<FastifyReply>();
     switch (exception.code) {
@@ -25,14 +24,8 @@ export class PrismaClientExceptionFilter extends BaseExceptionFilter {
         });
         break;
       default:
-        response.status(500).send({
-          statusCode: 500,
-          message: 'Internal Server Error',
-          error: 'Internal Server Error',
-        });
+        // If the error is not handled, let the default exception handler handle it
+        super.catch(exception, host);
     }
-
-    // default 500 error
-    super.catch(exception, host);
   }
 }

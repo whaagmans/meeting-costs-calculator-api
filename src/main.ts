@@ -28,7 +28,11 @@ function createFastifyAdapter(): FastifyAdapter {
 }
 
 function createValidationPipe(): ValidationPipe {
-  return new ValidationPipe();
+  return new ValidationPipe({
+    whitelist: true, // Remove any additional properties that are not defined in the DTO.
+    transform: true, // Automatically transform incoming data to the DTO type.
+    forbidNonWhitelisted: true, // Throw an error if any non-whitelisted properties are present.
+  });
 }
 
 function createPrismaClientExceptionFilter(
@@ -54,8 +58,10 @@ async function serverSetup() {
   // Apply Prisma exception handling globally.
   app.useGlobalFilters(createPrismaClientExceptionFilter(httpAdapter));
 
-  // Initialize Swagger API documentation.
-  swaggerSetup(app);
+  if (process.env.SWAGGER_ENABLED) {
+    // Initialize Swagger API documentation.
+    swaggerSetup(app);
+  }
 
   // Start the server and listen on the given port.
   await app.listen(+port, '0.0.0.0');
