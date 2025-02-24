@@ -58,8 +58,10 @@ async function serverSetup() {
   // Apply Prisma exception handling globally.
   app.useGlobalFilters(createPrismaClientExceptionFilter(httpAdapter));
 
-  // Initialize Swagger API documentation.
-  swaggerSetup(app);
+  if (process.env.SWAGGER_ENABLED) {
+    // Initialize Swagger API documentation.
+    swaggerSetup(app);
+  }
 
   // Start the server and listen on the given port.
   await app.listen(+port, '0.0.0.0');
