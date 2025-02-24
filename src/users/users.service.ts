@@ -1,12 +1,12 @@
+import { PrismaService } from '@/config/prisma/prisma.service';
+import { calculateSalaryPerSecond } from '@/lib/salary-calculation';
 import { Injectable } from '@nestjs/common';
+import { User } from '@prisma/client';
+import { hash } from 'argon2';
+import { plainToInstance } from 'class-transformer';
 import { CreateUserDto, SalaryInfo } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { PrismaService } from '@/config/prisma/prisma.service';
-import { PaymentInterval } from './users.interface';
-import { hash } from 'argon2';
-import { User } from '@prisma/client';
 import { UserDto } from './dto/user.dto';
-import { plainToInstance } from 'class-transformer';
 
 @Injectable()
 export class UsersService {
@@ -71,27 +71,5 @@ export class UsersService {
       },
     });
     return plainToInstance(UserDto, deletedUser);
-  }
-}
-
-function calculateSalaryPerSecond(
-  amount: number,
-  paymentInterval: PaymentInterval,
-  workedHoursPerWeek: number,
-): number {
-  const MONTHS_PER_YEAR = 12;
-  const SECONDS_PER_HOUR = 3600;
-  const workedHoursPerMonth = workedHoursPerWeek * 4;
-  switch (paymentInterval) {
-    case PaymentInterval.Hour: {
-      return amount / SECONDS_PER_HOUR;
-    }
-    case PaymentInterval.Month: {
-      return amount / workedHoursPerMonth / SECONDS_PER_HOUR;
-    }
-    case PaymentInterval.Year: {
-      const workedHoursPerYear = workedHoursPerMonth * MONTHS_PER_YEAR;
-      return amount / workedHoursPerYear / SECONDS_PER_HOUR;
-    }
   }
 }
