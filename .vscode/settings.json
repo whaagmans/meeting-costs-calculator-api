@@ -4,6 +4,7 @@
         "config",
         "workflow",
         "prisma",
-        "types"
+        "types",
+        "lib"
     ]
 }

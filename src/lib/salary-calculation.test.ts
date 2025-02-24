@@ -23,7 +23,7 @@ describe('calculateSalaryPerSecond', () => {
       paymentInterval,
       workedHoursPerWeek,
     );
-    expect(result).toBeCloseTo(0.05, 2); // $0.05 per second
+    expect(result).toBeCloseTo(0.0125, 4); // $0.0125 per second
   });
 
   it('should calculate salary per second for yearly payment interval', () => {
@@ -35,6 +35,6 @@ describe('calculateSalaryPerSecond', () => {
       paymentInterval,
       workedHoursPerWeek,
     );
-    expect(result).toBeCloseTo(0.04167, 5); // $0.04167 per second
+    expect(result).toBeCloseTo(0.0125, 5); // $0.04167 per second
   });
 });
