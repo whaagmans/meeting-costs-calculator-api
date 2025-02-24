@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserDto, SalaryInfo } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { PrismaService } from 'prisma/service/prisma.service';
+import { PrismaService } from '@/config/prisma/prisma.service';
 import { PaymentInterval } from './users.interface';
 import { hash } from 'argon2';
 import { User } from '@prisma/client';
