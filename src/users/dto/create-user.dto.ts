@@ -14,7 +14,8 @@ import {
   ValidateNested,
 } from 'class-validator';
 import { PaymentInterval } from '../users.interface';
-class SalaryDto {
+
+export class SalaryInfo {
   @IsNotEmpty()
   @IsPositive()
   amount: number;
@@ -47,8 +48,14 @@ export class CreateUserDto {
 
   @IsStrongPassword()
   password: string;
+}
+
+export class CreateUserBody {
+  @ValidateNested()
+  @Type(() => CreateUserDto)
+  user: CreateUserDto;
 
   @ValidateNested()
-  @Type(() => SalaryDto)
-  salaryInfo: SalaryDto;
+  @Type(() => SalaryInfo)
+  salaryInfo: SalaryInfo;
 }
