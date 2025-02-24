@@ -12,10 +12,11 @@ const config: Config = {
   collectCoverageFrom: ['src/**/*.(t|j)s'],
   coveragePathIgnorePatterns: [
     'src/main.ts', // Exclude main.ts (app bootstrap)
-    'src/app\\.module\\.ts$', // Ignore app.module.ts (NestJS modules)
+    'src/.*\\.module\\.ts$', // Ignore all .module.ts files
     'src/.*/dto/.*\\.ts$', // Ignore all DTOs inside any subfolder
     'src/.*/entities/.*\\.ts$', // Ignore all entity files inside any subfolder
     'test/', // Exclude test folder
+    'src/exception-filters/', // Exclude exception filters
   ],
 
   coverageDirectory: '../coverage',
