@@ -19,7 +19,7 @@ const config: Config = {
     'src/exception-filters/', // Exclude exception filters
   ],
 
-  coverageDirectory: '../coverage',
+  coverageDirectory: './coverage',
   testEnvironment: 'node',
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
     prefix: '<rootDir>/',
