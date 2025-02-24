@@ -8,6 +8,7 @@ export function calculateSalaryPerSecond(
   const MONTHS_PER_YEAR = 12;
   const SECONDS_PER_HOUR = 3600;
   const workedHoursPerMonth = workedHoursPerWeek * 4;
+
   switch (paymentInterval) {
     case PaymentInterval.Hour: {
       return amount / SECONDS_PER_HOUR;
