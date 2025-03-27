@@ -1,9 +1,18 @@
 import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import {
+  HealthCheck,
+  HealthCheckService,
+  PrismaHealthIndicator,
+} from '@nestjs/terminus';
+import { PrismaService } from './config/prisma/prisma.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly health: HealthCheckService,
+    private readonly db: PrismaHealthIndicator,
+    private readonly prisma: PrismaService,
+  ) {}
 
   @Get()
   getWelcome(): { message: string } {
@@ -11,7 +20,8 @@ export class AppController {
   }
 
   @Get('health')
-  getHealth(): string {
-    return this.appService.getHealth();
+  @HealthCheck()
+  healthCheck() {
+    return this.health.check([() => this.db.pingCheck('prisma', this.prisma)]);
   }
 }
