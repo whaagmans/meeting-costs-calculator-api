@@ -9,9 +9,9 @@ import { PrismaService } from './config/prisma/prisma.service';
 @Controller()
 export class AppController {
   constructor(
-    private health: HealthCheckService,
-    private db: PrismaHealthIndicator,
-    private prisma: PrismaService,
+    private readonly health: HealthCheckService,
+    private readonly db: PrismaHealthIndicator,
+    private readonly prisma: PrismaService,
   ) {}
 
   @Get()
