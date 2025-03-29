@@ -1,9 +1,9 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { RoomsService } from './rooms.service';
 import { PrismaService } from '@/config/prisma/prisma.service';
+import { Test, TestingModule } from '@nestjs/testing';
+import { Room } from '@prisma/client';
 import { CreateRoomDto } from './dto/create-room.dto';
 import { UpdateRoomDto } from './dto/update-room.dto';
-import { Room } from '@prisma/client';
+import { RoomsService } from './rooms.service';
 
 describe('RoomsService', () => {
   let service: RoomsService;
@@ -38,8 +38,18 @@ describe('RoomsService', () => {
       const createRoomDto: CreateRoomDto = { name: 'Test Room' };
 
       jest.spyOn(prismaService.room, 'create').mockResolvedValue(room);
+      jest.spyOn(prismaService.room, 'findUnique').mockResolvedValue(null);
 
       expect(await service.create(createRoomDto)).toEqual(room);
+    });
+
+    it('should throw an error if it can not generate a unique room code', async () => {
+      const createRoomDto: CreateRoomDto = { name: 'Test Room' };
+      jest.spyOn(prismaService.room, 'findUnique').mockResolvedValue(room);
+
+      await expect(service.create(createRoomDto)).rejects.toThrow(
+        'Failed to generate a unique room code after multiple attempts.',
+      );
     });
   });
 
