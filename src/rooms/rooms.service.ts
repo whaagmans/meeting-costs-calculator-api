@@ -3,17 +3,18 @@ import { Room } from '@prisma/client';
 import { PrismaService } from '@/config/prisma/prisma.service';
 import { CreateRoomDto } from './dto/create-room.dto';
 import { UpdateRoomDto } from './dto/update-room.dto';
+import ShortUniqueId from 'short-unique-id';
 
 @Injectable()
 export class RoomsService {
   constructor(private readonly prisma: PrismaService) {}
-  create(createRoomDto: CreateRoomDto): Promise<Room> {
-    const random = Math.random().toString(36).substring(7);
+  async create(createRoomDto: CreateRoomDto): Promise<Room> {
+    const roomCode = await this.generateRoomCode();
 
     return this.prisma.room.create({
       data: {
         ...createRoomDto,
-        roomCode: random,
+        roomCode,
       },
     });
   }
@@ -45,5 +46,25 @@ export class RoomsService {
         roomCode,
       },
     });
+  }
+
+  private async generateRoomCode(): Promise<string> {
+    const { randomUUID } = new ShortUniqueId({
+      length: 7,
+      dictionary: 'alphanum',
+    });
+    const randomCode = randomUUID();
+
+    // Check if the room code already exists in the database
+    const roomExists = await this.prisma.room.findUnique({
+      where: {
+        roomCode: randomCode,
+      },
+    });
+
+    if (roomExists) {
+      return this.generateRoomCode();
+    }
+    return randomCode;
   }
 }
