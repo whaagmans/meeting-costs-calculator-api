@@ -1,19 +1,10 @@
 import { Controller, Get } from '@nestjs/common';
-import {
-  HealthCheck,
-  HealthCheckService,
-  PrismaHealthIndicator,
-} from '@nestjs/terminus';
-import { PrismaService } from './config/prisma/prisma.service';
+import { HealthCheck } from '@nestjs/terminus';
+import { AppService } from './app.service';
 
 @Controller()
 export class AppController {
-  constructor(
-    private readonly health: HealthCheckService,
-    private readonly db: PrismaHealthIndicator,
-    private readonly prisma: PrismaService,
-  ) {}
-
+  constructor(private readonly appService: AppService) {}
   @Get()
   getWelcome(): { message: string } {
     return { message: 'Welcome to the Meeting Costs Calculator API' };
@@ -21,7 +12,7 @@ export class AppController {
 
   @Get('health')
   @HealthCheck()
-  healthCheck() {
-    return this.health.check([() => this.db.pingCheck('prisma', this.prisma)]);
+  async healthCheck() {
+    return await this.appService.getHealth();
   }
 }
