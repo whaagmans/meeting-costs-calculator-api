@@ -38,6 +38,7 @@ describe('RoomsService', () => {
       const createRoomDto: CreateRoomDto = { name: 'Test Room' };
 
       jest.spyOn(prismaService.room, 'create').mockResolvedValue(room);
+      jest.spyOn(prismaService.room, 'findUnique').mockResolvedValue(null);
 
       expect(await service.create(createRoomDto)).toEqual(room);
     });
