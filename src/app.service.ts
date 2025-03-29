@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import {
   type HealthCheckResult,
+  type HealthIndicatorResult,
   HealthCheckService,
   HttpHealthIndicator,
   PrismaHealthIndicator,
@@ -16,10 +17,13 @@ export class AppService {
     private readonly prisma: PrismaService,
   ) {}
   getHealth(): Promise<HealthCheckResult> {
-    const frontendUrl = process.env.FRONTEND_URL ?? 'http://localhost:3000';
-    return this.health.check([
-      () => this.http.pingCheck('frontend web-app', frontendUrl),
-      () => this.db.pingCheck('prisma', this.prisma),
-    ]);
+    const checks: Array<() => Promise<HealthIndicatorResult>> = [];
+    const frontendUrl = process.env.FRONTEND_URL;
+    if (frontendUrl) {
+      checks.push(() => this.http.pingCheck('frontend web-app', frontendUrl));
+    }
+
+    checks.push(() => this.db.pingCheck('prisma', this.prisma));
+    return this.health.check(checks);
   }
 }
