@@ -49,22 +49,26 @@ export class RoomsService {
   }
 
   private async generateRoomCode(): Promise<string> {
-    const { randomUUID } = new ShortUniqueId({
-      length: 7,
-      dictionary: 'alphanum',
-    });
-    const randomCode = randomUUID();
+    for (let i = 0; i < 8; i++) {
+      const { randomUUID } = new ShortUniqueId({
+        length: 7,
+        dictionary: 'alphanum',
+      });
+      const randomCode = randomUUID();
 
-    // Check if the room code already exists in the database
-    const roomExists = await this.prisma.room.findUnique({
-      where: {
-        roomCode: randomCode,
-      },
-    });
+      // Check if the room code already exists in the database
+      const roomExists = await this.prisma.room.findUnique({
+        where: {
+          roomCode: randomCode,
+        },
+      });
 
-    if (roomExists) {
-      return this.generateRoomCode();
+      if (!roomExists) {
+        return randomCode;
+      }
     }
-    return randomCode;
+    throw new Error(
+      'Failed to generate a unique room code after multiple attempts.',
+    );
   }
 }
