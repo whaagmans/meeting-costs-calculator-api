@@ -1,10 +1,11 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { RoomsController } from './rooms.controller';
-import { RoomsService } from './rooms.service';
 import { PrismaService } from '@/config/prisma/prisma.service';
+import { NotFoundException } from '@nestjs/common';
+import { Test, TestingModule } from '@nestjs/testing';
+import { Room } from '@prisma/client';
 import { CreateRoomDto } from './dto/create-room.dto';
 import { UpdateRoomDto } from './dto/update-room.dto';
-import { Room } from '@prisma/client';
+import { RoomsController } from './rooms.controller';
+import { RoomsService } from './rooms.service';
 
 describe('RoomsController', () => {
   let controller: RoomsController;
@@ -61,6 +62,18 @@ describe('RoomsController', () => {
       jest.spyOn(service, 'findByRoomCode').mockResolvedValue(result);
 
       expect(await controller.findOne('roomCode')).toBe(result);
+    });
+
+    it('should throw NotFoundException if room not found', async () => {
+      jest.spyOn(service, 'findByRoomCode').mockResolvedValue(null);
+
+      try {
+        await controller.findOne('non-existing-room-code');
+      } catch (error) {
+        const caughtError = error as NotFoundException;
+        expect(caughtError).toBeInstanceOf(NotFoundException);
+        expect(caughtError.message).toBe('Room not found');
+      }
     });
   });
 
