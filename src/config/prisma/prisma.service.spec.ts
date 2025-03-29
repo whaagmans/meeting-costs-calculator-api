@@ -24,6 +24,18 @@ describe('PrismaService', () => {
     expect(connectSpy).toHaveBeenCalled();
   });
 
+  it('should console log the error when the connection fails', async () => {
+    const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+    jest
+      .spyOn(service, '$connect')
+      .mockRejectedValue(new Error('Connection failed'));
+    await service.onModuleInit();
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      'Error connecting to the database',
+    );
+    consoleErrorSpy.mockRestore();
+  });
+
   it('should disconnect on module destroy', async () => {
     const disconnectSpy = jest
       .spyOn(service, '$disconnect')
