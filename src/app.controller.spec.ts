@@ -1,12 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
 import { PrismaService } from './config/prisma/prisma.service';
-import { PrismaHealthIndicator, HealthCheckService } from '@nestjs/terminus';
+import {
+  PrismaHealthIndicator,
+  HealthCheckService,
+  type HealthCheckResult,
+  HttpHealthIndicator,
+} from '@nestjs/terminus';
+import { AppService } from './app.service';
 
 describe('AppController', () => {
   let appController: AppController;
-  let prismaHealthIndicator: PrismaHealthIndicator;
-  let healthCheckService: HealthCheckService;
+  let appService: AppService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -25,17 +30,21 @@ describe('AppController', () => {
           },
         },
         {
+          provide: HttpHealthIndicator,
+          useValue: {
+            pingCheck: jest.fn(),
+          },
+        },
+        {
           provide: PrismaService,
           useValue: {},
         },
+        AppService,
       ],
     }).compile();
 
     appController = module.get<AppController>(AppController);
-    prismaHealthIndicator = module.get<PrismaHealthIndicator>(
-      PrismaHealthIndicator,
-    );
-    healthCheckService = module.get<HealthCheckService>(HealthCheckService);
+    appService = module.get<AppService>(AppService);
   });
 
   describe('getWelcome', () => {
@@ -47,27 +56,23 @@ describe('AppController', () => {
   });
 
   describe('healthCheck', () => {
-    it('should return the health status', async () => {
-      jest.spyOn(prismaHealthIndicator, 'pingCheck').mockResolvedValue({
-        prisma: { status: 'up' },
-      });
-
-      // Mock the final shape that HealthCheckService returns
-      jest.spyOn(healthCheckService, 'check').mockResolvedValue({
+    it('should call AppService.getHealth and return the result', async () => {
+      const getHealthMock = jest.spyOn(appService, 'getHealth');
+      const mockHealthCheckResult: HealthCheckResult = {
         status: 'ok',
         info: { prisma: { status: 'up' } },
         error: {},
         details: { prisma: { status: 'up' } },
-      });
+      };
 
+      getHealthMock.mockResolvedValue(mockHealthCheckResult);
+
+      // Invoke the controller method
       const result = await appController.healthCheck();
 
-      expect(result).toEqual({
-        status: 'ok',
-        info: { prisma: { status: 'up' } },
-        error: {},
-        details: { prisma: { status: 'up' } },
-      });
+      // Ensure the service was called and the controller returned the same data
+      expect(getHealthMock).toHaveBeenCalledTimes(1);
+      expect(result).toBe(mockHealthCheckResult);
     });
   });
 });
