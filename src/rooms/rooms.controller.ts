@@ -18,7 +18,7 @@ export class RoomsController {
   constructor(private readonly roomsService: RoomsService) {}
 
   @Get()
-  findAll() {
+  findAll(): Promise<Room[]> {
     return this.roomsService.findAll();
   }
 
