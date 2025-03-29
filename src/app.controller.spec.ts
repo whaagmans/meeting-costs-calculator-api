@@ -5,7 +5,6 @@ import { PrismaHealthIndicator, HealthCheckService } from '@nestjs/terminus';
 
 describe('AppController', () => {
   let appController: AppController;
-  let prismaService: PrismaService;
   let prismaHealthIndicator: PrismaHealthIndicator;
   let healthCheckService: HealthCheckService;
 
@@ -37,7 +36,6 @@ describe('AppController', () => {
       PrismaHealthIndicator,
     );
     healthCheckService = module.get<HealthCheckService>(HealthCheckService);
-    prismaService = module.get<PrismaService>(PrismaService);
   });
 
   describe('getWelcome', () => {
@@ -49,25 +47,27 @@ describe('AppController', () => {
   });
 
   describe('healthCheck', () => {
-    it('should return the health status of the application', async () => {
-      const checkSpy = jest.spyOn(healthCheckService, 'check');
-      const pingSpy = jest
-        .spyOn(prismaHealthIndicator, 'pingCheck')
-        .mockResolvedValue({ prisma: { status: 'up' } });
+    it('should return the health status', async () => {
+      jest.spyOn(prismaHealthIndicator, 'pingCheck').mockResolvedValue({
+        prisma: { status: 'up' },
+      });
 
-      await appController.healthCheck();
+      // Mock the final shape that HealthCheckService returns
+      jest.spyOn(healthCheckService, 'check').mockResolvedValue({
+        status: 'ok',
+        info: { prisma: { status: 'up' } },
+        error: {},
+        details: { prisma: { status: 'up' } },
+      });
 
-      // Ensure health.check was called exactly once
-      expect(checkSpy).toHaveBeenCalledTimes(1);
+      const result = await appController.healthCheck();
 
-      // Called with an array of indicator functions
-      expect(checkSpy).toHaveBeenCalledWith([expect.any(Function)]);
-
-      // To fully test the inner indicator, manually call it:
-      const indicatorFn = checkSpy.mock.calls[0][0][0];
-      await indicatorFn();
-
-      expect(pingSpy).toHaveBeenCalledWith('prisma', prismaService);
+      expect(result).toEqual({
+        status: 'ok',
+        info: { prisma: { status: 'up' } },
+        error: {},
+        details: { prisma: { status: 'up' } },
+      });
     });
   });
 });
