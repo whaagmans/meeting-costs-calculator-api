@@ -1,7 +1,6 @@
 import { PrismaService } from '@/config/prisma/prisma.service';
 import { calculateSalaryPerSecond } from '@/lib/salary-calculation';
 import { Injectable } from '@nestjs/common';
-import { User } from '@prisma/client';
 import { hash } from 'argon2';
 import { plainToInstance } from 'class-transformer';
 import { CreateUserDto, SalaryInfo } from './dto/create-user.dto';
@@ -35,7 +34,7 @@ export class UsersService {
     return plainToInstance(UserDto, createdUser);
   }
 
-  async findAll(): Promise<User[]> {
+  async findAll(): Promise<UserDto[]> {
     const users = await this.prisma.user.findMany();
     return plainToInstance(UserDto, users);
   }

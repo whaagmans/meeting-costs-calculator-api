@@ -1,19 +1,19 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
-  Delete,
-  NotFoundException,
-  UseInterceptors,
   ClassSerializerInterceptor,
+  Controller,
+  Delete,
+  Get,
+  NotFoundException,
+  Param,
+  Patch,
+  Post,
+  UseInterceptors,
 } from '@nestjs/common';
-import { UsersService } from './users.service';
 import { CreateUserBody } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserDto } from './dto/user.dto';
+import { UsersService } from './users.service';
 
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('users')
@@ -21,8 +21,8 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get()
-  async findAll(): Promise<UserDto[]> {
-    return await this.usersService.findAll();
+  findAll(): Promise<UserDto[]> {
+    return this.usersService.findAll();
   }
 
   @Get(':id')
@@ -35,20 +35,20 @@ export class UsersController {
   }
 
   @Post()
-  async create(@Body() { user, salaryInfo }: CreateUserBody): Promise<UserDto> {
-    return await this.usersService.create(user, salaryInfo);
+  create(@Body() { user, salaryInfo }: CreateUserBody): Promise<UserDto> {
+    return this.usersService.create(user, salaryInfo);
   }
 
   @Patch(':id')
-  async update(
+  update(
     @Param('id') id: string,
     @Body() updateUserDto: UpdateUserDto,
   ): Promise<UserDto> {
-    return await this.usersService.update(id, updateUserDto);
+    return this.usersService.update(id, updateUserDto);
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string): Promise<UserDto> {
-    return await this.usersService.remove(id);
+  remove(@Param('id') id: string): Promise<UserDto> {
+    return this.usersService.remove(id);
   }
 }
