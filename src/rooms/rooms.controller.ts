@@ -1,29 +1,29 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
+  Get,
   NotFoundException,
+  Param,
+  Patch,
+  Post,
 } from '@nestjs/common';
-import { RoomsService } from './rooms.service';
 import { CreateRoomDto } from './dto/create-room.dto';
+import { RoomDto } from './dto/room.dto';
 import { UpdateRoomDto } from './dto/update-room.dto';
-import type { Room } from '@prisma/client';
+import { RoomsService } from './rooms.service';
 
 @Controller('rooms')
 export class RoomsController {
   constructor(private readonly roomsService: RoomsService) {}
 
   @Get()
-  findAll(): Promise<Room[]> {
+  findAll(): Promise<RoomDto[]> {
     return this.roomsService.findAll();
   }
 
   @Get(':roomCode')
-  async findOne(@Param('roomCode') roomCode: string): Promise<Room> {
+  async findOne(@Param('roomCode') roomCode: string): Promise<RoomDto> {
     const room = await this.roomsService.findByRoomCode(roomCode);
     if (!room) {
       throw new NotFoundException('Room not found');
@@ -32,7 +32,7 @@ export class RoomsController {
   }
 
   @Post()
-  create(@Body() createRoomDto: CreateRoomDto): Promise<Room> {
+  create(@Body() createRoomDto: CreateRoomDto): Promise<RoomDto> {
     return this.roomsService.create(createRoomDto);
   }
 
@@ -40,12 +40,12 @@ export class RoomsController {
   update(
     @Param('roomCode') roomCode: string,
     @Body() updateRoomDto: UpdateRoomDto,
-  ): Promise<Room> {
+  ): Promise<RoomDto> {
     return this.roomsService.update(roomCode, updateRoomDto);
   }
 
   @Delete(':roomCode')
-  async remove(@Param('roomCode') roomCode: string): Promise<Room> {
+  async remove(@Param('roomCode') roomCode: string): Promise<RoomDto> {
     return this.roomsService.remove(roomCode);
   }
 }

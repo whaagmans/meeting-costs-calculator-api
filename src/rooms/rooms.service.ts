@@ -1,9 +1,11 @@
+import { PrismaService } from '@/config/prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 import { Room } from '@prisma/client';
-import { PrismaService } from '@/config/prisma/prisma.service';
-import { CreateRoomDto } from './dto/create-room.dto';
-import { UpdateRoomDto } from './dto/update-room.dto';
+import { plainToInstance } from 'class-transformer';
 import ShortUniqueId from 'short-unique-id';
+import { CreateRoomDto } from './dto/create-room.dto';
+import { RoomDto } from './dto/room.dto';
+import { UpdateRoomDto } from './dto/update-room.dto';
 
 @Injectable()
 export class RoomsService {
@@ -11,41 +13,46 @@ export class RoomsService {
   async create(createRoomDto: CreateRoomDto): Promise<Room> {
     const roomCode = await this.generateRoomCode();
 
-    return this.prisma.room.create({
+    const room = await this.prisma.room.create({
       data: {
         ...createRoomDto,
         roomCode,
       },
     });
+    return plainToInstance(RoomDto, room);
   }
 
-  findAll(): Promise<Room[]> {
-    return this.prisma.room.findMany();
+  async findAll(): Promise<RoomDto[]> {
+    const rooms = await this.prisma.room.findMany();
+    return plainToInstance(RoomDto, rooms);
   }
 
-  findByRoomCode(roomCode: string): Promise<Room | null> {
-    return this.prisma.room.findUnique({
+  async findByRoomCode(roomCode: string): Promise<Room | null> {
+    const room = await this.prisma.room.findUnique({
       where: {
         roomCode,
       },
     });
+    return plainToInstance(RoomDto, room);
   }
 
-  update(roomCode: string, updateRoomDto: UpdateRoomDto): Promise<Room> {
-    return this.prisma.room.update({
+  async update(roomCode: string, updateRoomDto: UpdateRoomDto): Promise<Room> {
+    const room = await this.prisma.room.update({
       where: {
         roomCode,
       },
       data: updateRoomDto,
     });
+    return plainToInstance(RoomDto, room);
   }
 
   async remove(roomCode: string): Promise<Room> {
-    return await this.prisma.room.delete({
+    const room = await this.prisma.room.delete({
       where: {
         roomCode,
       },
     });
+    return plainToInstance(RoomDto, room);
   }
 
   private async generateRoomCode(): Promise<string> {

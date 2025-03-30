@@ -4,6 +4,8 @@ import { Room } from '@prisma/client';
 import { CreateRoomDto } from './dto/create-room.dto';
 import { UpdateRoomDto } from './dto/update-room.dto';
 import { RoomsService } from './rooms.service';
+import { plainToInstance } from 'class-transformer';
+import { RoomDto } from './dto/room.dto';
 
 describe('RoomsService', () => {
   let service: RoomsService;
@@ -40,7 +42,9 @@ describe('RoomsService', () => {
       jest.spyOn(prismaService.room, 'create').mockResolvedValue(room);
       jest.spyOn(prismaService.room, 'findUnique').mockResolvedValue(null);
 
-      expect(await service.create(createRoomDto)).toEqual(room);
+      const expectedRoom = plainToInstance(RoomDto, room);
+
+      expect(await service.create(createRoomDto)).toEqual(expectedRoom);
     });
 
     it('should throw an error if it can not generate a unique room code', async () => {
@@ -58,16 +62,18 @@ describe('RoomsService', () => {
       const rooms: Room[] = [room];
 
       jest.spyOn(prismaService.room, 'findMany').mockResolvedValue(rooms);
+      const expectedRooms = plainToInstance(RoomDto, rooms);
 
-      expect(await service.findAll()).toEqual(rooms);
+      expect(await service.findAll()).toEqual(expectedRooms);
     });
   });
 
   describe('findByRoomCode', () => {
     it('should return a room by room code', async () => {
       jest.spyOn(prismaService.room, 'findUnique').mockResolvedValue(room);
+      const expectedRoom = plainToInstance(RoomDto, room);
 
-      expect(await service.findByRoomCode('random')).toEqual(room);
+      expect(await service.findByRoomCode('random')).toEqual(expectedRoom);
     });
 
     it('should return null if room not found', async () => {
@@ -82,9 +88,10 @@ describe('RoomsService', () => {
       const updateRoomDto: UpdateRoomDto = { name: 'Updated Room' };
       const updatedRoom: Room = { ...room, name: 'Updated Room' };
       jest.spyOn(prismaService.room, 'update').mockResolvedValue(updatedRoom);
+      const expectedRoom = plainToInstance(RoomDto, updatedRoom);
 
       expect(await service.update('random', updateRoomDto)).toEqual(
-        updatedRoom,
+        expectedRoom,
       );
     });
   });
@@ -92,8 +99,9 @@ describe('RoomsService', () => {
   describe('remove', () => {
     it('should remove a room', async () => {
       jest.spyOn(prismaService.room, 'delete').mockResolvedValue(room);
+      const expectedRoom = plainToInstance(RoomDto, room);
 
-      expect(await service.remove('random')).toEqual(room);
+      expect(await service.remove('random')).toEqual(expectedRoom);
     });
   });
 });

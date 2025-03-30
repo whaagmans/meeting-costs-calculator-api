@@ -101,8 +101,8 @@ describe('RoomsController', () => {
     it('should update a room', async () => {
       const updateRoomDto: UpdateRoomDto = { name: 'New Room' };
       const result: Room = {
-        ...updateRoomDto,
         id: '1',
+        name: 'Room 1',
         roomCode: '',
         roomPassword: null,
         meetingStatus: 'NOT_STARTED',
@@ -110,6 +110,7 @@ describe('RoomsController', () => {
         endedAt: null,
         createdAt: new Date(),
         updatedAt: new Date(),
+        ...updateRoomDto,
       };
       jest.spyOn(service, 'update').mockResolvedValue(result);
 
