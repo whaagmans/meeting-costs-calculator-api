@@ -1,13 +1,13 @@
+import {
+  type HealthCheckResult,
+  HealthCheckService,
+  HttpHealthIndicator,
+  PrismaHealthIndicator,
+} from '@nestjs/terminus';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
-import { PrismaService } from './config/prisma/prisma.service';
-import {
-  PrismaHealthIndicator,
-  HealthCheckService,
-  type HealthCheckResult,
-  HttpHealthIndicator,
-} from '@nestjs/terminus';
 import { AppService } from './app.service';
+import { PrismaService } from './config/prisma/prisma.service';
 
 describe('AppController', () => {
   let appController: AppController;

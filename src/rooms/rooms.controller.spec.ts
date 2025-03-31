@@ -1,11 +1,12 @@
 import { PrismaService } from '@/config/prisma/prisma.service';
 import { NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { Room } from '@prisma/client';
 import { CreateRoomDto } from './dto/create-room.dto';
-import { UpdateRoomDto } from './dto/update-room.dto';
 import { RoomsController } from './rooms.controller';
 import { RoomsService } from './rooms.service';
+
+import type { Room } from '@prisma/client';
+import type { UpdateRoomDto } from './dto/update-room.dto';
 
 describe('RoomsController', () => {
   let controller: RoomsController;

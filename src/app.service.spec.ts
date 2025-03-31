@@ -1,10 +1,10 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { AppService } from './app.service';
 import {
   HealthCheckService,
   HttpHealthIndicator,
   PrismaHealthIndicator,
 } from '@nestjs/terminus';
+import { Test, TestingModule } from '@nestjs/testing';
+import { AppService } from './app.service';
 import { PrismaService } from './config/prisma/prisma.service';
 
 describe('AppService', () => {

@@ -8,10 +8,11 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { CreateRoomDto } from './dto/create-room.dto';
-import { RoomDto } from './dto/room.dto';
-import { UpdateRoomDto } from './dto/update-room.dto';
 import { RoomsService } from './rooms.service';
+
+import type { CreateRoomDto } from './dto/create-room.dto';
+import type { RoomDto } from './dto/room.dto';
+import type { UpdateRoomDto } from './dto/update-room.dto';
 
 @Controller('rooms')
 export class RoomsController {

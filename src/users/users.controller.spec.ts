@@ -1,12 +1,13 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { UsersController } from './users.controller';
-import { UsersService } from './users.service';
-import { NotFoundException } from '@nestjs/common';
-import { CreateUserBody } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { UserDto } from './dto/user.dto';
-import { PaymentInterval } from './users.interface';
 import { PrismaService } from '@/config/prisma/prisma.service';
+import { NotFoundException } from '@nestjs/common';
+import { Test, TestingModule } from '@nestjs/testing';
+import { UserDto } from './dto/user.dto';
+import { UsersController } from './users.controller';
+import { PaymentInterval } from './users.interface';
+import { UsersService } from './users.service';
+
+import type { CreateUserBody } from './dto/create-user.dto';
+import type { UpdateUserDto } from './dto/update-user.dto';
 
 describe('UsersController', () => {
   let controller: UsersController;

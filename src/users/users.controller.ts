@@ -10,10 +10,11 @@ import {
   Post,
   UseInterceptors,
 } from '@nestjs/common';
-import { CreateUserBody } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { UserDto } from './dto/user.dto';
 import { UsersService } from './users.service';
+
+import type { CreateUserBody } from './dto/create-user.dto';
+import type { UpdateUserDto } from './dto/update-user.dto';
+import type { UserDto } from './dto/user.dto';
 
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('users')

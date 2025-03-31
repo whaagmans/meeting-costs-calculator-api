@@ -3,9 +3,10 @@ import { calculateSalaryPerSecond } from '@/lib/salary-calculation';
 import { Injectable } from '@nestjs/common';
 import { hash } from 'argon2';
 import { plainToInstance } from 'class-transformer';
-import { CreateUserDto, SalaryInfo } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { UserDto } from './dto/user.dto';
+
+import type { CreateUserDto, SalaryInfo } from './dto/create-user.dto';
+import type { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UsersService {

@@ -1,8 +1,8 @@
 import { ValidationPipe, type INestApplication } from '@nestjs/common';
 import {
-  type AbstractHttpAdapter,
   HttpAdapterHost,
   NestFactory,
+  type AbstractHttpAdapter,
 } from '@nestjs/core';
 import {
   FastifyAdapter,

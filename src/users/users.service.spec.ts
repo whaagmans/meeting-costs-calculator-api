@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/unbound-method */
-import { Test, TestingModule } from '@nestjs/testing';
-import { UsersService } from './users.service';
 import { PrismaService } from '@/config/prisma/prisma.service';
-import { CreateUserDto, SalaryInfo } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { PaymentInterval } from './users.interface';
-import { User } from '@prisma/client';
+import { Test, TestingModule } from '@nestjs/testing';
 import { randomUUID } from 'crypto';
+import { PaymentInterval } from './users.interface';
+import { UsersService } from './users.service';
+
+import type { User } from '@prisma/client';
+import type { CreateUserDto, SalaryInfo } from './dto/create-user.dto';
+import type { UpdateUserDto } from './dto/update-user.dto';
 
 jest.mock('argon2', () => ({
   hash: jest.fn().mockResolvedValue('hashedPassword'),

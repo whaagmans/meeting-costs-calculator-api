@@ -1,11 +1,12 @@
 import { PrismaService } from '@/config/prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
-import { Room } from '@prisma/client';
 import { plainToInstance } from 'class-transformer';
 import ShortUniqueId from 'short-unique-id';
-import { CreateRoomDto } from './dto/create-room.dto';
 import { RoomDto } from './dto/room.dto';
-import { UpdateRoomDto } from './dto/update-room.dto';
+
+import type { Room } from '@prisma/client';
+import type { CreateRoomDto } from './dto/create-room.dto';
+import type { UpdateRoomDto } from './dto/update-room.dto';
 
 @Injectable()
 export class RoomsService {
