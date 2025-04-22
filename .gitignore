@@ -1,9 +1,6 @@
 # Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode,node,webstorm
 # Edit at https://www.toptal.com/developers/gitignore?templates=visualstudiocode,node,webstorm
 
-## Prisma ##
-src/generated/prisma
-
 ### Node ###
 # Logs
 logs

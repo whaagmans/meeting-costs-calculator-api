@@ -7,7 +7,7 @@ const config: Config = {
   moduleFileExtensions: ['js', 'json', 'ts'],
   testRegex: '.*\\.(test|spec)\\.ts$',
   transform: {
-    '^.+\\.(t|j)s$': 'ts-jest',
+    '^.+\\.ts$': 'ts-jest',
   },
   collectCoverageFrom: ['src/**/*.(t|j)s'],
   coveragePathIgnorePatterns: [
