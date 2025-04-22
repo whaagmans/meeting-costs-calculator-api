@@ -1,4 +1,4 @@
-import { MeetingStatus } from '@prisma';
+import { MeetingStatus } from '@prisma/client';
 import { Exclude } from 'class-transformer';
 
 export class RoomDto {

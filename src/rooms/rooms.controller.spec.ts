@@ -5,7 +5,7 @@ import { CreateRoomDto } from './dto/create-room.dto';
 import { RoomsController } from './rooms.controller';
 import { RoomsService } from './rooms.service';
 
-import type { Room } from '@prisma';
+import type { Room } from '@prisma/client';
 import type { UpdateRoomDto } from './dto/update-room.dto';
 
 describe('RoomsController', () => {

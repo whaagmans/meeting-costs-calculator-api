@@ -4,7 +4,7 @@ import { plainToInstance } from 'class-transformer';
 import ShortUniqueId from 'short-unique-id';
 import { RoomDto } from './dto/room.dto';
 
-import type { Room } from '@prisma';
+import type { Room } from '@prisma/client';
 import type { CreateRoomDto } from './dto/create-room.dto';
 import type { UpdateRoomDto } from './dto/update-room.dto';
 
