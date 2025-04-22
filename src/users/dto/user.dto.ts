@@ -1,4 +1,4 @@
-import { User } from '@prisma/client';
+import { User } from '@prisma';
 import { Exclude } from 'class-transformer';
 
 export class UserDto implements User {

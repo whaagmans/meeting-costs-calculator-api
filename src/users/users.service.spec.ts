@@ -5,7 +5,7 @@ import { randomUUID } from 'crypto';
 import { PaymentInterval } from './users.interface';
 import { UsersService } from './users.service';
 
-import type { User } from '@prisma/client';
+import type { User } from '@prisma';
 import type { CreateUserDto, SalaryInfo } from './dto/create-user.dto';
 import type { UpdateUserDto } from './dto/update-user.dto';
 
