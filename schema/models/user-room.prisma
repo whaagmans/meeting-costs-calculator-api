@@ -1,0 +1,15 @@
+model UserRoom {
+  userId   String
+  roomId   String
+  joinedAt DateTime @default(now())
+  role     Role     @default(USER)
+  room     Room     @relation(fields: [roomId], references: [id])
+  user     User     @relation(fields: [userId], references: [id])
+
+  @@id([userId, roomId])
+}
+
+enum Role {
+  USER
+  ADMIN
+}
