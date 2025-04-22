@@ -26,7 +26,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       
-      - name: generate prisma client
+      - name: Generate prisma client
         run: npm run db:generate
 
       - name: Test and coverage
