@@ -29,6 +29,7 @@
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:push": "prisma db push",
+    "db:pull": "prisma db pull",
     "db:deploy": "prisma migrate deploy",
     "db:status": "prisma migrate status",
     "db:reset": "prisma migrate reset",
@@ -79,5 +80,8 @@
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.26.1"
+  },
+  "prisma": {
+    "schema": "./schema"
   }
 }
