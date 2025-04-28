@@ -5,6 +5,7 @@
         "workflow",
         "prisma",
         "types",
-        "lib"
+        "lib",
+        "deps"
     ]
 }
