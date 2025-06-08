@@ -5,7 +5,7 @@ import { CreateRoomDto } from './dto/create-room.dto';
 import { RoomsController } from './rooms.controller';
 import { RoomsService } from './rooms.service';
 
-import type { Room } from '@prisma/client';
+import type { RoomDto } from './dto/room.dto';
 import type { UpdateRoomDto } from './dto/update-room.dto';
 
 describe('RoomsController', () => {
@@ -28,7 +28,7 @@ describe('RoomsController', () => {
 
   describe('findAll', () => {
     it('should return an array of rooms', async () => {
-      const result: Room[] = [
+      const result: RoomDto[] = [
         {
           id: '1',
           name: 'Room 1',
@@ -49,7 +49,7 @@ describe('RoomsController', () => {
 
   describe('findOne', () => {
     it('should return a single room', async () => {
-      const result: Room = {
+      const result: RoomDto = {
         id: '1',
         name: 'Room 1',
         roomCode: '',
@@ -81,7 +81,7 @@ describe('RoomsController', () => {
   describe('create', () => {
     it('should create a new room', async () => {
       const createRoomDto: CreateRoomDto = { name: 'New Room' };
-      const result: Room = {
+      const result: RoomDto = {
         id: '1',
         ...createRoomDto,
         roomCode: '',
@@ -101,7 +101,7 @@ describe('RoomsController', () => {
   describe('update', () => {
     it('should update a room', async () => {
       const updateRoomDto: UpdateRoomDto = { name: 'New Room' };
-      const result: Room = {
+      const result: RoomDto = {
         id: '1',
         name: 'Room 1',
         roomCode: '',
@@ -121,7 +121,7 @@ describe('RoomsController', () => {
 
   describe('remove', () => {
     it('should remove a room', async () => {
-      const result: Room = {
+      const result: RoomDto = {
         id: '1',
         name: 'Room 1',
         roomCode: '',

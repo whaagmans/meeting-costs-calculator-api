@@ -11,7 +11,7 @@ import type { UpdateRoomDto } from './dto/update-room.dto';
 @Injectable()
 export class RoomsService {
   constructor(private readonly prisma: PrismaService) {}
-  async create(createRoomDto: CreateRoomDto): Promise<Room> {
+  async create(createRoomDto: CreateRoomDto): Promise<RoomDto> {
     const roomCode = await this.generateRoomCode();
 
     const room = await this.prisma.room.create({
@@ -28,7 +28,7 @@ export class RoomsService {
     return plainToInstance(RoomDto, rooms);
   }
 
-  async findByRoomCode(roomCode: string): Promise<Room | null> {
+  async findByRoomCode(roomCode: string): Promise<RoomDto | null> {
     const room = await this.prisma.room.findUnique({
       where: {
         roomCode,
@@ -37,7 +37,7 @@ export class RoomsService {
     return plainToInstance(RoomDto, room);
   }
 
-  async update(roomCode: string, updateRoomDto: UpdateRoomDto): Promise<Room> {
+  async update(roomCode: string, updateRoomDto: UpdateRoomDto): Promise<RoomDto> {
     const room = await this.prisma.room.update({
       where: {
         roomCode,
@@ -47,7 +47,7 @@ export class RoomsService {
     return plainToInstance(RoomDto, room);
   }
 
-  async remove(roomCode: string): Promise<Room> {
+  async remove(roomCode: string): Promise<RoomDto> {
     const room = await this.prisma.room.delete({
       where: {
         roomCode,
